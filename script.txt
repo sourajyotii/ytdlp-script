@@ -1,0 +1,58 @@
+@echo off
+echo .......................Welcome to YouTube Downloader By LOGO!..............................
+
+:q1
+echo 1)Single Video
+echo 2)Video Playlist
+echo 3)Single Song or Song Playlist
+set /p c1="Enter Choice(1 - 3) : "
+if %c1%==1 (goto a1) else if %c1%==2 (goto a2) else if %c1%==3 (goto a3) else (echo Wrong Input! Pls Try again
+goto q1)
+
+
+:a1 
+set /p URL="Enter Video URL: "
+
+
+echo 1)Use Best Resolution
+echo 2)Chose Specific Resolution
+set /p c2="Enter Choice(1 , 2) : "
+if %c2%==2 (yt-dlp -F %URL%
+set /p A="Enter Video ID: "
+set /p B="Enter Audio ID: "
+echo -f %A%+%B%>"yt-dlp.conf") else (echo -f "bv[vcodec^=avc]+ba[ext=m4a]">"yt-dlp.conf")
+
+
+set /p c2="Do You Want To Download a Part of The Video?(y/n): "
+if %c2% NEQ y (goto sb)
+set /p S="Enter Start (hh:mm:ss): " 
+set /p E="Enter End (hh:mm:ss): "
+echo --download-sections "*%S%-%E%">>"yt-dlp.conf"
+goto o
+
+
+:a2
+set /p URL="Enter Playlist URL: "
+
+
+:q4
+set /p c2="Enter Default Quality 1080p(1) | 720p(2) | 480p(3) : "
+if %c2%==1 (set Q=1080) else if %c2%==2 (set Q=720) else if %c2%==3 (set Q=480) else (echo Wrong Input! Pls Try again
+goto q4)
+echo --yes-playlist -f "bv[height<=%Q%][vcodec^=avc]+ba[ext=m4a]">>"yt-dlp.conf"
+
+
+:sb
+set /p c2="Do You Want To Use SponsorBlock?(y/n): "
+if %c2%==y (echo --sponsorblock-remove default>>"yt-dlp.conf")
+echo --merge-output-format mp4>>"yt-dlp.conf"
+goto o
+
+:o
+yt-dlp %URL% -o "%%(title)s.%%(ext)s"
+del yt-dlp.conf
+
+
+:a3
+set /p URL="Enter Song/Playlist URL: "
+yt-dlp --yes-playlist --sponsorblock-remove default -f bestaudio -x --audio-format mp3 %URL% -o "%%(title)s.%%(ext)s" --add-metadata --compat-options embed-metadata --embed-thumbnail --convert-thumbnails jpg --ppa "ffmpeg: -c:v mjpeg -vf crop=\"'if(gt(ih,iw),iw,ih)':'if(gt(iw,ih),ih,iw)'\""
