@@ -9,7 +9,7 @@ A simple batch script for downloading videos, playlists and songs with different
 
 #### Step 1
 Download yt-dlp and ffmpeg and copy the main files to a same folder
-![Step 1](https://imgur.com/a/pG7rv4f)
+![Step 1](https://www.dropbox.com/s/dbg4wlw0pfoazhi/step%201.png?dl=0)
 
 #### Step 2
 Open script.txt and copy the entire code
