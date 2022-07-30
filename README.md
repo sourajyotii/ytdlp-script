@@ -1,4 +1,15 @@
 # ytdlp-script
 A simple batch script for downloading videos, playlists and songs with different options.
 
-Copy the entire text in script.txt and create a new text file on your computer. Paste the copied text and save the file in .bat format.
+##Requirements
+1) [YT-DLP](https://github.com/yt-dlp/yt-dlp)
+2) [FFMPEG](https://www.gyan.dev/ffmpeg/builds/)
+
+##How to use
+
+####Step 1
+Download yt-dlp and ffmpeg and copy the main files to a same folder
+![Step 1](https://imgur.com/WTUNieG)
+
+####Step 2
+Open script.txt and copy the entire code
