@@ -1,6 +1,5 @@
 @echo off
 echo .......................Welcome to YouTube Downloader By LOGO!..............................
-
 :q1
 echo 1)Single Video
 echo 2)Video Playlist
@@ -17,12 +16,14 @@ set /p URL="Enter Video URL: "
 echo 1)Use Best Resolution
 echo 2)Chose Specific Resolution
 set /p c2="Enter Choice(1 , 2) : "
-if %c2%==2 (yt-dlp -F %URL%
+if %c2%==1 (echo -f "bv[vcodec^=avc]+ba[ext=m4a]">"yt-dlp.conf"
+goto p)
+yt-dlp -F %URL%
 set /p A="Enter Video ID: "
 set /p B="Enter Audio ID: "
-echo -f %A%+%B%>"yt-dlp.conf") else (echo -f "bv[vcodec^=avc]+ba[ext=m4a]">"yt-dlp.conf")
+echo -f %A%+%B%>"yt-dlp.conf"
 
-
+:p
 set /p c2="Do You Want To Download a Part of The Video?(y/n): "
 if %c2% NEQ y (goto sb)
 set /p S="Enter Start (hh:mm:ss): " 
@@ -48,11 +49,12 @@ if %c2%==y (echo --sponsorblock-remove default>>"yt-dlp.conf")
 echo --merge-output-format mp4>>"yt-dlp.conf"
 goto o
 
-:o
-yt-dlp %URL% -o "%%(title)s.%%(ext)s"
-del yt-dlp.conf
-
 
 :a3
 set /p URL="Enter Song/Playlist URL: "
-yt-dlp --yes-playlist --sponsorblock-remove default -f bestaudio -x --audio-format mp3 %URL% -o "%%(title)s.%%(ext)s" --add-metadata --compat-options embed-metadata --embed-thumbnail --convert-thumbnails jpg --ppa "ffmpeg: -c:v mjpeg -vf crop=\"'if(gt(ih,iw),iw,ih)':'if(gt(iw,ih),ih,iw)'\""
+echo --yes-playlist --sponsorblock-remove default -f bestaudio -x --audio-format mp3 -o "%%(title)s.%%(ext)s" --add-metadata --compat-options embed-metadata --embed-thumbnail --convert-thumbnails jpg --ppa "ffmpeg: -c:v mjpeg -vf crop=\"'if(gt(ih,iw),iw,ih)':'if(gt(iw,ih),ih,iw)'\"">>"yt-dlp.conf"
+
+:o
+yt-dlp %URL% -o "%%(title)s.%%(ext)s"
+del yt-dlp.conf
+pause
